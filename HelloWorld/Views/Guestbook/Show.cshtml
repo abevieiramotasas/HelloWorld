@@ -1,0 +1,27 @@
+﻿@using HelloWorld.Models
+@model GuestbookEntry
+
+@{
+    ViewBag.Title = "Show";
+}
+
+@Html.EditorForModel()
+<dl>
+    <dt>Name:</dt>
+    <dd>@Model.Name</dd>
+    <dt>Date Added:</dt>
+    <dd>@Model.DateAdded</dd>
+    <dt>Message:</dt>
+    <dd>@Model.Message</dd>
+</dl>
+
+<p>
+    @{
+        bool hasPermission = (bool) ViewData["hasPermission"];   
+    }
+    @if (hasPermission)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    }
+    @Html.ActionLink("Back To Entries", "Index")
+</p>
