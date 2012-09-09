@@ -11,6 +11,20 @@ namespace HelloWorld.Controllers
     {
         private GuestbookContext _db = new GuestbookContext();
 
+
+        public ActionResult CommentSummary()
+        {
+            var entries = _db.Entries
+                .GroupBy(g => g.Name)
+                .Select(g => new CommentSummary{ UserName = g.Key, NumberOfComments = g.Count()});
+            return View(entries);
+        }
+
+        [NonAction]
+        public void DoNothing()
+        {
+        }
+
         public ActionResult Show(int id)
         {
             var existEntry = _db.Entries.Any(e => e.Id == id);
@@ -43,11 +57,15 @@ namespace HelloWorld.Controllers
         [HttpPost]
         public ActionResult Create(GuestbookEntry entry)
         {
-            entry.DateAdded = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                entry.DateAdded = DateTime.Now;
 
-            _db.Entries.Add(entry);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+                _db.Entries.Add(entry);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(entry);
         }
 
     }

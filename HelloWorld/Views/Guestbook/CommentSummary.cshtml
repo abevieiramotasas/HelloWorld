@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "CommentSummary";
+}
+
+@model IEnumerable<HelloWorld.Models.CommentSummary>
+
+<table>
+    <tr>
+        <th>Number of Comments</th>
+        <th>User Name</th>
+    </tr>
+    @foreach (var summaryRow in Model)
+    {
+        <tr>
+            <td>@summaryRow.NumberOfComments</td>
+            <td>@summaryRow.UserName</td>
+        </tr>
+    }
+</table>

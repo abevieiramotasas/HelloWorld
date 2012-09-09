@@ -1,16 +1,17 @@
 ﻿@{
     ViewBag.Title = "Add new entry";
 }
+@model HelloWorld.Models.GuestbookEntry
+@Html.ValidationSummary()
 
 <h2>Add new entry</h2>
 <form method="post" action="">
     <fieldset>
         Please enter your name: <br />
-        <input type="text" name="Name" maxlength="200" />
+        @Html.TextBoxFor(g => g.Name)
         <br /><br />
         Please enter your message: <br />
-        <textarea name="Message" rows="10" cols="40">
-        </textarea>
+        @Html.TextAreaFor(g => g.Message, new { rows = 10, cols = 40 })
         <br /><br />
         <input type="submit" value="Submit Entry" />
     </fieldset>
